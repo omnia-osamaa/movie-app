@@ -1,14 +1,9 @@
-abstract class AppAssets {}
-
-class AppImages extends AppAssets {
+abstract class AppIcons{
   static const String logo = 'assets/images/app_logo.png';
   static const String logoAndroid11 = 'assets/images/splash_ios_android_11.png';
   static const String logoAndroid12 = 'assets/images/splash_ios_android_12.png';
   static const String emptyWatchList = 'assets/images/empty_watch_list.png';
   static const String emptySearch = 'assets/images/empty_search.png';
-}
-
-class AppIcons extends AppAssets {
   static const String selectedHome = 'assets/icons/slected_home.svg';
   static const String unselectedHome = 'assets/icons/un_slected_home.svg';
   static const String selectedSearch = 'assets/icons/slected_search.svg';

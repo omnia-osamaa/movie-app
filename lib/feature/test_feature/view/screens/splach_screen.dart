@@ -31,7 +31,7 @@ class _SplachScreenState extends State<SplachScreen> {
           children: [
             ShakeX(
               duration: Duration(seconds: 2),
-              child: Image.asset(AppImages.logo),
+              child: Image.asset(AppIcons.logo),
             ),
           ],
         ),
