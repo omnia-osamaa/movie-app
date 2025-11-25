@@ -1,10 +1,13 @@
 abstract class ResultApi<T> {}
 
-class Loading<T> extends ResultApi<T> {}
+class LoadingApi<T> extends ResultApi<T> {}
 
-class Success<T> extends ResultApi<T> {}
+class SuccessApi<T> extends ResultApi<T> {
+  final T data;
+  SuccessApi(this.data);
+}
 
-class Error<T> extends ResultApi<T> {
-  final String message;
-  Error(this.message);
+class ErrorApi<T> extends ResultApi<T> {
+  final String messageError;
+  ErrorApi(this.messageError);
 }
