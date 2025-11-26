@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/utils/app_apis.dart';
+import 'package:movie_app/core/utils/app_colors.dart';
+import 'package:movie_app/feature/test_feature/view/widgets/popular_movie_item_widget.dart';
 import 'package:movie_app/feature/test_feature/view/widgets/top_rated_item_widget.dart';
+import 'package:movie_app/feature/test_feature/view_model/popular_movies_cubit.dart';
+import 'package:movie_app/feature/test_feature/view_model/popular_movies_state.dart';
 import 'package:movie_app/feature/test_feature/view_model/top_rated_cubit.dart';
 import 'package:movie_app/feature/test_feature/view_model/top_rated_state.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -39,6 +44,28 @@ class _HomeTabState extends State<HomeTab> {
               child: BlocBuilder<TopRatedCubit, TopRatedState>(
                 bloc: TopRatedCubit()..getTopRatedMovies(),
                 builder: (context, state) {
+                  if (state is TopRatedLoading) {
+                    return Skeletonizer(
+                      effect: const ShimmerEffect(),
+                      enabled: true,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(width: 10),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            height: 180,
+                            width: 145,
+                            decoration: BoxDecoration(
+                              color: AppColors.grey,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          );
+                        },
+                        itemCount: 20,
+                      ),
+                    );
+                  }
                   if (state is TopRatedSuccess) {
                     return ListView.separated(
                       separatorBuilder: (context, index) => SizedBox(
@@ -57,6 +84,75 @@ class _HomeTabState extends State<HomeTab> {
                     );
                   }
                   if (state is TopRatedError) {
+                    return Center(
+                      child: Text(
+                        state.message,
+                        style: TextTheme.of(context).bodyMedium,
+                      ),
+                    );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(left: 24),
+              child: Text(
+                'Popular',
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(fontWeight: FontWeight.normal),
+              ),
+            ),
+            SizedBox(height: 12),
+            SizedBox(
+              height: 145,
+              child: BlocBuilder<PopularMoviesCubit, PopularMoviesState>(
+                bloc: PopularMoviesCubit()..getPopularMovies(),
+                builder: (context, state) {
+                  if (state is PopularMoviesLoading) {
+                    return Skeletonizer(
+                      effect: const ShimmerEffect(),
+                      enabled: true,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(width: 10),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            height: 145,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              color: AppColors.grey,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          );
+                        },
+                        itemCount: 20,
+                      ),
+                    );
+                  }
+                  if (state is PopularMoviesSuccess) {
+                    return ListView.separated(
+                      separatorBuilder: (context, index) => SizedBox(
+                        width: 0,
+                      ),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        final fullPosterUrl =
+                            "${AppApis.imageBaseUrl}${state.movies[index].posterPath}";
+                        return PopularMovieItemWidget(
+                          imageUrl: fullPosterUrl,
+                        );
+                      },
+                      itemCount: state.movies.length,
+                    );
+                  }
+                  if (state is PopularMoviesError) {
                     return Center(
                       child: Text(
                         state.message,

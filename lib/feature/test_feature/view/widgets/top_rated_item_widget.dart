@@ -19,13 +19,16 @@ class TopRatedItemWidget extends StatelessWidget {
             height: 220,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(16),
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: imageUrl!,
-                placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-              ),
+              child: imageUrl == null || imageUrl!.isEmpty
+                  ? Container(color: AppColors.grey)
+                  : CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: imageUrl!,
+                      placeholder: (context, url) =>
+                          Container(color: AppColors.primary),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
             ),
           ),
           Positioned(
@@ -33,7 +36,6 @@ class TopRatedItemWidget extends StatelessWidget {
             left: -15,
             child: Stack(
               children: [
-                // لون داخلي
                 Text(
                   '${index! + 1}',
                   style: TextStyle(
@@ -57,7 +59,7 @@ class TopRatedItemWidget extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
