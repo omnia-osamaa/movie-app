@@ -1,3 +1,5 @@
+import 'package:movie_app/core/utils/app_apis.dart';
+
 class TopRatedMoviesModel {
   int? page;
   List<Results>? results;
@@ -51,6 +53,11 @@ class Results {
       this.video,
       this.voteAverage,
       this.voteCount});
+
+  String get fullPosterTopRatedUrl {
+    if (posterPath == null) return "";
+    return "${AppApis.imageBaseUrl}$posterPath";
+  }
 
   Results.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];

@@ -16,8 +16,6 @@ class PopularMoviesCubit extends Cubit<PopularMoviesState> {
         emit(PopularMoviesSuccess(result.data.results??[]));
       case ErrorApi<PopularMoviesModel>():
         emit(PopularMoviesError(result.messageError));
-      case LoadingApi<PopularMoviesModel>():
-        emit(PopularMoviesLoading());
     }
   }
 }

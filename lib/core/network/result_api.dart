@@ -1,7 +1,5 @@
 sealed class ResultApi<T> {}
 
-class LoadingApi<T> extends ResultApi<T> {}
-
 class SuccessApi<T> extends ResultApi<T> {
   final T data;
   SuccessApi(this.data);

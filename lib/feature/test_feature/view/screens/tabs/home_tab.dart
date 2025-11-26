@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/core/utils/app_apis.dart';
 import 'package:movie_app/core/utils/app_colors.dart';
 import 'package:movie_app/feature/test_feature/view/widgets/popular_movie_item_widget.dart';
 import 'package:movie_app/feature/test_feature/view/widgets/top_rated_item_widget.dart';
@@ -18,10 +17,15 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  bool isLoading = false;
+  late TopRatedCubit topRatedCubit;
+  late PopularMoviesCubit popularCubit;
   @override
   void initState() {
     super.initState();
+    topRatedCubit = TopRatedCubit();
+    topRatedCubit.getTopRatedMovies();
+    popularCubit = PopularMoviesCubit();
+    popularCubit.getPopularMovies();
   }
 
   @override
@@ -42,7 +46,7 @@ class _HomeTabState extends State<HomeTab> {
             SizedBox(
               height: 260,
               child: BlocBuilder<TopRatedCubit, TopRatedState>(
-                bloc: TopRatedCubit()..getTopRatedMovies(),
+                bloc: topRatedCubit,
                 builder: (context, state) {
                   if (state is TopRatedLoading) {
                     return Skeletonizer(
@@ -73,10 +77,8 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        final fullPosterUrl =
-                            "${AppApis.imageBaseUrl}${state.movies[index].posterPath}";
                         return TopRatedItemWidget(
-                          imageUrl: fullPosterUrl,
+                          imageUrl: state.movies[index].fullPosterTopRatedUrl,
                           index: index,
                         );
                       },
@@ -112,7 +114,7 @@ class _HomeTabState extends State<HomeTab> {
             SizedBox(
               height: 145,
               child: BlocBuilder<PopularMoviesCubit, PopularMoviesState>(
-                bloc: PopularMoviesCubit()..getPopularMovies(),
+                bloc: popularCubit,
                 builder: (context, state) {
                   if (state is PopularMoviesLoading) {
                     return Skeletonizer(
@@ -143,10 +145,8 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        final fullPosterUrl =
-                            "${AppApis.imageBaseUrl}${state.movies[index].posterPath}";
                         return PopularMovieItemWidget(
-                          imageUrl: fullPosterUrl,
+                          imageUrl: state.movies[index].fullPosterPopularUrl,
                         );
                       },
                       itemCount: state.movies.length,
