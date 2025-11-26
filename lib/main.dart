@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
-      initialRoute: SplachScreen.routeName,
+      initialRoute: HomeScreen.routeName,
       routes: {
         SplachScreen.routeName: (context) => const SplachScreen(),
         HomeScreen.routeName: (context) => const HomeScreen(),
