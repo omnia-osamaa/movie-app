@@ -38,9 +38,9 @@ dependencies:
   animate_do: ^4.2.0
   flutter_svg: ^2.2.0
   http: ^1.6.0
-  cached_network_image: ^3.4.1
   flutter_bloc: ^9.1.1
-  skeletonizer: ^1.4.3
+  skeletonizer: ^2.1.0+1
+  cached_network_image: ^3.4.1
 
 
 dev_dependencies:
