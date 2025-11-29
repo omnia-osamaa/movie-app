@@ -4,4 +4,6 @@ abstract class AppApis {
   static String imageBaseUrl = "https://image.tmdb.org/t/p/w500";
   //End points
   static const String searchEndpoint = '/3/search/movie';
+  static const String topRatedUrl = '/3/movie/top_rated';
+  static const String popularMovieUrl = '/3/movie/popular';
 }

@@ -3,7 +3,7 @@ import 'package:movie_app/core/utils/app_theme.dart';
 import 'package:movie_app/feature/test_feature/view/screens/home_screen.dart';
 import 'package:movie_app/feature/test_feature/view/screens/splach_screen.dart';
 
-void main() {
+void main()  {
   runApp(const MyApp());
 }
 
