@@ -1,3 +1,5 @@
+import 'package:movie_app/core/utils/app_apis.dart';
+
 class ReleaseMovieModel {
   Dates? dates;
   int? page;
@@ -13,12 +15,12 @@ class ReleaseMovieModel {
       this.totalResults});
 
   ReleaseMovieModel.fromJson(Map<String, dynamic> json) {
-    dates = json['dates'] != null ? new Dates.fromJson(json['dates']) : null;
+    dates = json['dates'] != null ?  Dates.fromJson(json['dates']) : null;
     page = json['page'];
     if (json['results'] != null) {
       results = <Results>[];
       json['results'].forEach((v) {
-        results!.add(new Results.fromJson(v));
+        results!.add( Results.fromJson(v));
       });
     }
     totalPages = json['total_pages'];
@@ -37,12 +39,6 @@ class Dates {
     minimum = json['minimum'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['maximum'] = this.maximum;
-    data['minimum'] = this.minimum;
-    return data;
-  }
 }
 
 class Results {
@@ -60,6 +56,11 @@ class Results {
   bool? video;
   double? voteAverage;
   int? voteCount;
+
+  String get fullPosterReleaseUrl {
+    if (posterPath == null) return "";
+    return "${AppApis.imageBaseUrl}$posterPath";
+  }
 
   Results(
       {this.adult,
@@ -94,5 +95,5 @@ class Results {
     voteCount = json['vote_count'];
   }
 
-  String? get fullPosterReleaseUrl => null;
+  
 }

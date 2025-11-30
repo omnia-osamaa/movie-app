@@ -5,6 +5,7 @@ abstract class ReleaseMoviesState {}
 final class ReleaseMoviesInitial extends ReleaseMoviesState {}
 
 final class ReleaseMoviesLoading extends ReleaseMoviesState {}
+
 final class ReleaseMoviesSuccess extends ReleaseMoviesState {
   ReleaseMoviesSuccess(this.movies);
   final List<Results> movies;

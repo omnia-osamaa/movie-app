@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/utils/app_colors.dart';
 import 'package:movie_app/feature/test_feature/view/widgets/popular_movie_item_widget.dart';
+import 'package:movie_app/feature/test_feature/view/widgets/release_movie_item_widget.dart';
 import 'package:movie_app/feature/test_feature/view/widgets/top_rated_item_widget.dart';
 import 'package:movie_app/feature/test_feature/view_model/popular_movies_cubit.dart';
 import 'package:movie_app/feature/test_feature/view_model/popular_movies_state.dart';
@@ -21,6 +22,7 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   late TopRatedCubit topRatedCubit;
   late PopularMoviesCubit popularCubit;
+  late ReleaseMoviesCubit releaseCubit;
   @override
   void initState() {
     super.initState();
@@ -28,6 +30,8 @@ class _HomeTabState extends State<HomeTab> {
     topRatedCubit.getTopRatedMovies();
     popularCubit = PopularMoviesCubit();
     popularCubit.getPopularMovies();
+    releaseCubit = ReleaseMoviesCubit();
+    releaseCubit.getReleaseMovies();
   }
 
   @override
@@ -183,7 +187,7 @@ class _HomeTabState extends State<HomeTab> {
             SizedBox(
               height: 145,
               child: BlocBuilder<ReleaseMoviesCubit, ReleaseMoviesState>(
-                bloc: ReleaseMoviesCubit(),
+                bloc: releaseCubit,
                 builder: (context, state) {
                   if (state is ReleaseMoviesLoading) {
                     return Skeletonizer(
@@ -214,7 +218,7 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return PopularMovieItemWidget(
+                        return ReleaseMovieItemWidget(
                           imageUrl: state.movies[index].fullPosterReleaseUrl,
                         );
                       },
