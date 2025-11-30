@@ -41,6 +41,13 @@ class MyApp extends StatelessWidget {
       home: MovieDetailsScreen(
         movieId: '1419406',
       ),
+      theme: AppTheme.lightTheme,
+      themeMode: ThemeMode.light,
+      initialRoute: HomeScreen.routeName,
+      routes: {
+        SplachScreen.routeName: (context) => const SplachScreen(),
+        HomeScreen.routeName: (context) => const HomeScreen(),
+      },
     );
   }
 }
