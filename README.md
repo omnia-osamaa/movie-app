@@ -17,4 +17,5 @@ Architecture: Clean Architecture.
 Design Pattern: Repository Pattern for efficient data handling and abstraction.
 
 Database (API): TMDB (The Movie Database)
+![Uploading Movie App.png…]()
 
